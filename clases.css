@@ -30,6 +30,14 @@ body {
   text-align: center;
 }
 
+.boton_consultar {
+  cursor: pointer;
+}
+
+.boton_consultar:hover {
+  background-color: white;
+}
+
 .time {
   position: absolute;
   left: 10px;
