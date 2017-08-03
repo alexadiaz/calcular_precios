@@ -28,22 +28,21 @@ function comenzar() {
       costo_envio.textContent = "Debe ingresar cantidad";
       return;
     }
-    var id_pais = datos.getCountrySync(pais.value);
-    console.log(id_pais);
-    if (id_pais === null) {
-      costo_envio.textContent = "Pais no existe";
-      return;
-    }
 
-    var id_city = datos.getCitySync(id_pais, ciudad.value);
-    console.log(id_city);
-    if (id_city === null) {
-      costo_envio.textContent = "Cuidad no existe";
-      return;
-    }
-
-    var price = datos.getPriceSync(id_city);
-    console.log(price);
-    costo_envio.textContent = parseInt(cantidad.value) * price;
+    datos.getCountryCallback(pais.value, function(error, id_pais) {
+      if (error !== null) {
+        costo_envio.textContent = "Pais no existe";
+        return;
+      }
+      datos.getCityCallback(id_pais, ciudad.value, function(error, id_city) {
+        if (error !== null) {
+          costo_envio.textContent = "Ciudad no existe";
+          return;
+        }
+        datos.getPriceCallback(id_city, function(error, price) {
+          costo_envio.textContent = price * parseInt(cantidad.value, 10);
+        });
+      });
+    });
   });
 }
