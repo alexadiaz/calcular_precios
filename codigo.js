@@ -16,7 +16,7 @@ function comenzar() {
   console.dir(datos);
 
   consultar.addEventListener("click", function() {
-    costo_envio.style.color = "black";
+    costo_envio.style.color = "blue";
     costo_envio.textContent = "Espere ...";
 
     if (pais.value === "") {
@@ -39,20 +39,20 @@ function comenzar() {
 
     datos.getCountryCallback(pais.value, function(error, id_pais) {
       if (error !== null) {
-        costo_envio.style.color = "blue";
+        costo_envio.style.color = "green";
         costo_envio.textContent = "Pais no existe";
         botones(pais, ciudad, cantidad, consultar, false);
         return;
       }
       datos.getCityCallback(id_pais, ciudad.value, function(error, id_city) {
         if (error !== null) {
-          costo_envio.style.color = "blue";
+          costo_envio.style.color = "green";
           costo_envio.textContent = "Ciudad no existe";
           botones(pais, ciudad, cantidad, consultar, false);
           return;
         }
         datos.getPriceCallback(id_city, function(error, price) {
-          costo_envio.style.color = "black";
+          costo_envio.style.color = "blue";
           costo_envio.textContent = price * parseInt(cantidad.value, 10);
           botones(pais, ciudad, cantidad, consultar, false);
         });

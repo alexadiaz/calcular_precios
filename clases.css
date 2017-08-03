@@ -3,8 +3,8 @@ body {
 }
 
 .container {
-  border: 1px solid black;
-  padding: 60px 40px 30px 40px;
+  border: 2px solid black;
+  padding: 60px 40px 20px 40px;
   position: relative;
   width: 350px;
   border-radius: 10px;
@@ -14,8 +14,14 @@ body {
   width: 70px;
 }
 
-.consultar {
+.mensajes {
+  text-align: center;
+  color: blue;
+  font-weight: bold;
   padding: 20px;
+}
+
+.consultar {
   text-align: center;
 }
 
