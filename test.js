@@ -2,7 +2,7 @@ function init() {
   var defaultDelay = 3000;
   function delay(milliseconds) {
     var start = new Date().getTime();
-    for (var i = 0; i < 1e7; i++) {
+    for (var i = 0; i < Number.MAX_SAFE_INTEGER; i++) {
       if (new Date().getTime() - start > milliseconds) {
         break;
       }
