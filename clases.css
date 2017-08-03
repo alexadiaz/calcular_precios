@@ -1,5 +1,26 @@
+body {
+  margin: 10% 20%;
+}
+
+.container {
+  border: 1px solid black;
+  padding: 40px;
+  position: relative;
+  width: 500px;
+  border-radius: 10px;
+}
+
+.informacion {
+  padding: 10px;
+}
+
+.consultar {
+  padding: 20px;
+  text-align: center;
+}
+
 .time {
-  position: fixed;
-  right: 0;
-  top: 0;
+  position: absolute;
+  right: 10px;
+  top: 10px;
 }
