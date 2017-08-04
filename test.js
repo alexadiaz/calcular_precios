@@ -157,12 +157,8 @@ function init() {
       });
     },
 
-    getCityPromise: (countryId, name, lang) => {
+    getCityPromise: (countryId, name) => {
       return new Promise((resolve, reject) => {
-        if (!lang) {
-          reject("missing lang");
-        }
-
         setTimeout(function() {
           var result = getCityId(countryId, name);
           result === null ? reject("cant find city " + name) : resolve(result);
