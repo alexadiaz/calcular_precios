@@ -5,6 +5,7 @@ document.addEventListener("DOMContentLoaded", function() {
   setInterval(() => (time.innerText = new Date()), 1000);
 });
 
+var guardar_pais = [];
 function comenzar() {
   var pais = document.getElementById("pais");
   var ciudad = document.getElementById("ciudad");
@@ -44,7 +45,27 @@ function comenzar() {
         botones(pais, ciudad, cantidad, consultar, false);
         return;
       }
-      datos.getCityCallback(id_pais, ciudad.value, function(error, id_city) {
+      guardar_pais[0] = id_pais;
+      verificar_array(ciudad, datos);
+    });
+
+    datos.getLangCallback(pais.value, function(error, lenguaje) {
+      if (error !== null) {
+        return;
+      }
+      guardar_pais[1] = lenguaje;
+      verificar_array(ciudad, datos);
+    });
+  });
+}
+
+function verificar_array(ciudad, datos) {
+  if (guardar_pais[0] !== null && guardar_pais[1] !== null) {
+    datos.getCityCallback(
+      guardar_pais[0],
+      ciudad.value,
+      guardar_pais[1],
+      function(error, id_city) {
         if (error !== null) {
           costo_envio.style.color = "green";
           costo_envio.textContent = "Ciudad no existe";
@@ -56,9 +77,9 @@ function comenzar() {
           costo_envio.textContent = price * parseInt(cantidad.value, 10);
           botones(pais, ciudad, cantidad, consultar, false);
         });
-      });
-    });
-  });
+      }
+    );
+  }
 }
 
 function botones(pais, ciudad, cantidad, consultar, estado) {

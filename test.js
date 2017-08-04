@@ -10,11 +10,11 @@ function init() {
   }
 
   var countries = [
-    { id: 1, name: "USA" },
-    { id: 2, name: "Canada" },
-    { id: 3, name: "Colombia" },
-    { id: 4, name: "Spain" },
-    { id: 5, name: "France" }
+    { id: 1, name: "USA", lang: "EN" },
+    { id: 2, name: "Canada", lang: "FR/EN" },
+    { id: 3, name: "Colombia", lang: "ES" },
+    { id: 4, name: "Spain", lang: "ES" },
+    { id: 5, name: "France", lang: "FR" }
   ];
 
   var cities = [
@@ -71,6 +71,14 @@ function init() {
     return res.length === 0 ? null : res[0].id;
   };
 
+  var getCountryLang = name => {
+    name = name || "";
+    var res = countries.filter(
+      e => e.name.toLowerCase() === name.toLowerCase()
+    );
+    return res.length === 0 ? null : res[0].lang;
+  };
+
   var getCityId = function(countryId, name) {
     name = name || "";
     countryId = countryId || 0;
@@ -112,9 +120,20 @@ function init() {
         cb(err, result);
       }, defaultDelay);
     },
-    getCityCallback: (countryId, name, cb) => {
+    getLangCallback: (name, cb) => {
       setTimeout(function() {
-        var result = getCityId(countryId, name);
+        var result = getCountryLang(name);
+        var err = result === null ? "cant find country " + name : null;
+        cb(err, result);
+      }, defaultDelay);
+    },
+    getCityCallback: (countryId, name, lang, cb) => {
+      setTimeout(function() {
+        if (!lang) {
+          cb("missing lang", null);
+          return;
+        }
+        var result = getCityId(countryId, name, lang);
         var err = result === null ? "cant find city " + name : null;
         cb(err, result);
       }, defaultDelay);
@@ -138,8 +157,12 @@ function init() {
       });
     },
 
-    getCityPromise: (countryId, name) => {
+    getCityPromise: (countryId, name, lang) => {
       return new Promise((resolve, reject) => {
+        if (!lang) {
+          reject("missing lang");
+        }
+
         setTimeout(function() {
           var result = getCityId(countryId, name);
           result === null ? reject("cant find city " + name) : resolve(result);
